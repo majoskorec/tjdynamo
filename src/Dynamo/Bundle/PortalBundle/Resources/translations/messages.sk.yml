@@ -2,6 +2,7 @@ back: Späť
 create: Vytvor
 delete: Zmaž
 list: Zoznam
+showMore: zobraz viac
 menu:
     calendar: Kalendár
     profile: Profil

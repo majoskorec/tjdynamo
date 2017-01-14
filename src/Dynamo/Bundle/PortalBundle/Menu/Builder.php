@@ -10,6 +10,7 @@ namespace Dynamo\Bundle\PortalBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class Builder
@@ -20,12 +21,18 @@ class Builder
     /** @var FactoryInterface */
     private $factory;
 
+    /** @var TranslatorInterface */
+    private $translator;
+
     /**
+     * Builder constructor.
      * @param FactoryInterface $factory
+     * @param TranslatorInterface $translator
      */
-    public function __construct(FactoryInterface $factory)
+    public function __construct(FactoryInterface $factory, TranslatorInterface $translator)
     {
         $this->factory = $factory;
+        $this->translator = $translator;
     }
 
     /**
@@ -41,15 +48,33 @@ class Builder
 //        $menu->addChild('Employees', array('route' => 'dynamo_portal_default_twopercent'))
 //            ->setAttribute('icon', 'fa fa-group');
 
-        $menu->addChild('menu.calendar', ['route' => 'dynamo_portal_default_twopercent']);
-        $menu->addChild('menu.profile', ['route' => 'dynamo_portal_default_twopercent']);
-        $menu->addChild('menu.chat', ['route' => 'dynamo_portal_chat_index']);
-        $menu->addChild('menu.members', ['route' => 'dynamo_user_user_list']);
-        $menu->addChild('menu.statistics', ['route' => 'dynamo_portal_default_twopercent']);
-        $menu->addChild('menu.colonizator', ['route' => 'dynamo_colonization_colonization_index']);
-        $menu->addChild('menu.two-percent', ['route' => 'dynamo_portal_default_twopercent']);
-        $menu->addChild('menu.archive', ['route' => 'dynamo_portal_default_twopercent']);
-        $menu->addChild('menu.log', ['route' => 'dynamo_portal_default_twopercent']);
+        $menu->addChild($this->translator->trans('menu.calendar'), [
+            'route' => 'dynamo_portal_default_twopercent'
+        ]);
+        $menu->addChild($this->translator->trans('menu.profile'), [
+            'route' => 'dynamo_portal_default_twopercent'
+        ]);
+        $menu->addChild($this->translator->trans('menu.chat'), [
+            'route' => 'dynamo_portal_chat_index'
+        ]);
+        $menu->addChild($this->translator->trans('menu.members'), [
+            'route' => 'dynamo_user_user_list'
+        ]);
+        $menu->addChild($this->translator->trans('menu.statistics'), [
+            'route' => 'dynamo_portal_default_twopercent'
+        ]);
+        $menu->addChild($this->translator->trans('menu.colonizator'), [
+            'route' => 'dynamo_colonization_colonization_index'
+        ]);
+        $menu->addChild($this->translator->trans('menu.two-percent'), [
+            'route' => 'dynamo_portal_default_twopercent'
+        ]);
+        $menu->addChild($this->translator->trans('menu.archive'), [
+            'route' => 'dynamo_portal_default_twopercent'
+        ]);
+        $menu->addChild($this->translator->trans('menu.log'), [
+            'route' => 'dynamo_portal_default_twopercent'
+        ]);
 
 //        // access services from the container!
 //        $em = $this->container->get('doctrine')->getManager();

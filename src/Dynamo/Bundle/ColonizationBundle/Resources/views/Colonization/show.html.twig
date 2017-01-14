@@ -1,52 +1,33 @@
-{% extends 'DynamoPortalBundle::layout.html.twig' %}
 
-{% block content %}
-    <h1>Colonization</h1>
+<p class="lead">{{ colonization.note }}</p>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ colonization.id }}</td>
-            </tr>
-            <tr>
-                <th>Place</th>
-                <td>{{ colonization.place }}</td>
-            </tr>
-            <tr>
-                <th>Map</th>
-                <td>{{ colonization.map }}</td>
-            </tr>
-            <tr>
-                <th>Datefrom</th>
-                <td>{% if colonization.dateFrom %}{{ colonization.dateFrom|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Dateto</th>
-                <td>{% if colonization.dateTo %}{{ colonization.dateTo|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Note</th>
-                <td>{{ colonization.note }}</td>
-            </tr>
-            <tr>
-                <th>Createdat</th>
-                <td>{% if colonization.createdAt %}{{ colonization.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="row">
+    {% if colonization.colonizers is not empty %}
+    <div class="col-md-4">
+        <h4>{{ "colonization.colonizers"|trans }}</h4>
+        <ul>
+            {% for user in colonization.colonizers %}
+            <li>{{ user.firstName }} {{ user.lastName }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 
-    <ul>
-        <li>
-            <a href="{{ path('dynamo_colonization_colonization_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('dynamo_colonization_colonization_edit', { 'id': colonization.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-{% endblock %}
+    {% if colonization.map is not empty %}
+    <div class="col-md-8">
+        <h4>{{ "colonization.map"|trans }}</h4>
+        {{ colonization.map }}
+    </div>
+    {% endif %}
+</div>
+
+{% if colonization.photos is not empty %}
+<div>
+    <h4>{{ "colonization.photos"|trans }}</h4>
+    {% for photo in colonization.photos %}
+        <div class="thumbnail">
+            <img src="{{ asset(photo.dir ~ photo.fileName) }}" alt="{{ photo.title }}" title="{{ photo.title }}" />
+        </div>
+    {% endfor %}
+</div>
+{% endif %}

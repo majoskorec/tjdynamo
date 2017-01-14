@@ -1,0 +1,11 @@
+services:
+
+### listeners ##########################################################################################################
+
+    dynamo_resource.doctrine_resource_listener:
+        class: Dynamo\Bundle\ResourceBundle\EventListener\ResourceUploadListener
+        arguments:
+            - '@dynamo_portal.file_uploader'
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }

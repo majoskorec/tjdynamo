@@ -9,9 +9,11 @@
 namespace Dynamo\Bundle\ResourceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Dynamo\Bundle\PortalBundle\Entity\AddedByInterface;
 use Dynamo\Bundle\PortalBundle\Entity\CreatedAtInterface;
 use Dynamo\Bundle\PortalBundle\Entity\Traits\AddedByTrait;
 use Dynamo\Bundle\PortalBundle\Entity\Traits\CreatedAtTrait;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class Resource
@@ -19,7 +21,7 @@ use Dynamo\Bundle\PortalBundle\Entity\Traits\CreatedAtTrait;
  * @ORM\Entity()
  * @ORM\Table(name="dynamo_resource")
  */
-class Resource implements CreatedAtInterface
+class Resource implements CreatedAtInterface, AddedByInterface
 {
     use AddedByTrait;
     use CreatedAtTrait;
@@ -49,6 +51,27 @@ class Resource implements CreatedAtInterface
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
+
+    /**
+     * @var UploadedFile
+     */
+    private $file;
+
+    /**
+     * @return UploadedFile|null
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file)
+    {
+        $this->file = $file;
+    }
 
     /**
      * @return int

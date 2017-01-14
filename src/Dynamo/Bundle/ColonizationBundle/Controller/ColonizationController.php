@@ -29,7 +29,7 @@ class ColonizationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $colonizations = $em->getRepository(Colonization::class)->findAll();
+        $colonizations = $em->getRepository(Colonization::class)->findBy([], ["dateFrom" => "DESC"]);
 
         return $this->render('DynamoColonizationBundle:Colonization:index.html.twig', [
             'colonizations' => $colonizations,
@@ -101,7 +101,7 @@ class ColonizationController extends Controller
 
         return $this->render('DynamoColonizationBundle:Colonization:edit.html.twig', [
             'colonization' => $colonization,
-            'edit_form' => $editForm->createView(),
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ]);
     }

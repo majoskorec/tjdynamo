@@ -1,6 +1,7 @@
 colonization:
     # actions
     new: Nový
+    edit: Uprav
     created: Kolonizácia bola pridaná
     changed: Kolonizácia bola zmenená
     deleted: Kolonizácia bola zmazaná
@@ -13,4 +14,6 @@ colonization:
     date_to: Do
     note: Popis
     photos: Fotky
+    new_photo: Nová fotka
     colonizers: Kolonizátori
+    author: autor

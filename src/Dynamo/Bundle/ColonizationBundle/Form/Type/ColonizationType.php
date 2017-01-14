@@ -10,10 +10,8 @@ namespace Dynamo\Bundle\ColonizationBundle\Form\Type;
 
 use Dynamo\Bundle\ColonizationBundle\Entity\Colonization;
 use Dynamo\Bundle\PortalBundle\Form\Type\DatePickerType;
-use Dynamo\Bundle\ResourceBundle\Form\Type\ResourceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,17 +38,13 @@ class ColonizationType extends AbstractType
         $builder->add('dateFrom', DatePickerType::class, [
             'label' => 'colonization.date_from',
             'widget' => 'single_text',
-            // do not render as type="date", to avoid HTML5 date pickers
             'html5' => false,
-            // add a class that can be selected in JavaScript
             'attr' => ['class' => 'js-datepicker'],
         ]);
         $builder->add('dateTo', DatePickerType::class, [
             'label' => 'colonization.date_to',
             'widget' => 'single_text',
-            // do not render as type="date", to avoid HTML5 date pickers
             'html5' => false,
-            // add a class that can be selected in JavaScript
             'attr' => ['class' => 'js-datepicker'],
         ]);
         $builder->add('note', TextareaType::class, [
@@ -58,8 +52,14 @@ class ColonizationType extends AbstractType
         ]);
         $builder->add('photos', CollectionType::class, [
             'label' => 'colonization.photos',
-            'entry_type' => ResourceType::class,
+            'entry_type' => ColonizationPhotoType::class,
+            'entry_options' => array(
+                'label' => false,
+            ),
             'allow_add' => true,
+            'allow_delete' => true,
+            'prototype' => true,
+            'attr' => ['class' => 'colonization-photos',],
         ]);
         $builder->add('colonizers', null, [
             'label' => 'colonization.colonizers',

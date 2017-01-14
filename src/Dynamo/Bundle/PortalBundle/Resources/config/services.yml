@@ -4,7 +4,9 @@ services:
 
     dynamo_portal.menu_builder:
         class: Dynamo\Bundle\PortalBundle\Menu\Builder
-        arguments: ["@knp_menu.factory"]
+        arguments:
+            - "@knp_menu.factory"
+            - "@translator"
         tags:
             - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }
 
@@ -16,3 +18,11 @@ services:
             - "@security.token_storage"
         tags:
             - { name: doctrine.event_listener, event: prePersist, method: prePersist }
+
+### form ###############################################################################################################
+
+    dynamo_portal.file_uploader:
+        class: Dynamo\Bundle\PortalBundle\Form\FileUploader
+        arguments:
+            - "%kernel.root_dir%/../web"
+            - "/uploads/"

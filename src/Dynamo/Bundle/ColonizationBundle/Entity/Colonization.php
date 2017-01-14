@@ -67,14 +67,14 @@ class Colonization implements CreatedAtInterface, AddedByInterface
 
     /**
      * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Dynamo\Bundle\ResourceBundle\Entity\Resource")
+     * @ORM\ManyToMany(targetEntity="Dynamo\Bundle\ResourceBundle\Entity\Resource", cascade={"all"})
      * @ORM\JoinTable(
      *  name="dynamo_colonization_resource",
      *  joinColumns={
-     *      @ORM\JoinColumn(name="colonization_id", referencedColumnName="id")
+     *      @ORM\JoinColumn(name="colonization_id", referencedColumnName="id", onDelete="CASCADE")
      *  },
      *  inverseJoinColumns={
-     *      @ORM\JoinColumn(name="resource_id", referencedColumnName="id")
+     *      @ORM\JoinColumn(name="resource_id", referencedColumnName="id", onDelete="CASCADE")
      *  }
      * )
      */
@@ -94,6 +94,14 @@ class Colonization implements CreatedAtInterface, AddedByInterface
      * )
      */
     private $colonizers;
+
+    /**
+     * @return bool
+     */
+    public function isOneDay()
+    {
+        return $this->dateFrom == $this->dateTo;
+    }
 
     /**
      * @return int
@@ -202,9 +210,19 @@ class Colonization implements CreatedAtInterface, AddedByInterface
     /**
      * @param ArrayCollection $photos
      */
-    public function setPhotos(ArrayCollection $photos)
+    public function setPhotos($photos)
     {
-        $this->photos = $photos;
+        if ($photos instanceof ArrayCollection) {
+            $this->photos = $photos;
+            return;
+        }
+        if (is_array($photos)) {
+            $this->photos = new ArrayCollection($photos);
+            return;
+        }
+        throw new \InvalidArgumentException(
+            sprintf("%s expected array or ArrayCollection, got %s", __METHOD__, get_class($photos))
+        );
     }
 
     /**

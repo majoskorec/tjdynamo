@@ -1,3 +1,7 @@
+# ---- Project ----
+!web/photos/colonizations/.gitkeep
+/web/photos/colonizations
+
 # ---- Symfony ----
 # Email spool folder
 /app/spool/*
