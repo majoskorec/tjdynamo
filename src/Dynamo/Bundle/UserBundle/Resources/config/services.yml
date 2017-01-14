@@ -1,0 +1,4 @@
+services:
+#    dynamo_user.example:
+#        class: Dynamo\Bundle\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

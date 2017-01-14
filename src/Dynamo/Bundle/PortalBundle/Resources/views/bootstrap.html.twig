@@ -1,0 +1,14 @@
+{% extends "bootstrap_3_layout.html.twig" %}
+
+{% block date_picker_widget %}
+    {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) -%}
+    {%- set type = type|default('text') -%}
+    {#<input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>#}
+    <div class="input-group date" data-provide="datepicker" data-date-autoclose="1" data-date-format="yyyy-mm-dd"
+         data-date-language="{{ app.request.locale }}">
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        <div class="input-group-addon">
+            <span class="glyphicon glyphicon-th"></span>
+        </div>
+    </div>
+{% endblock %}

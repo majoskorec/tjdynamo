@@ -1,0 +1,50 @@
+{% extends 'DynamoPortalBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Colonizations list</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Place</th>
+            <th>Map</th>
+            <th>Datefrom</th>
+            <th>Dateto</th>
+            <th>Note</th>
+            <th>Createdat</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for colonization in colonizations %}
+            <tr>
+                <td><a href="{{ path('dynamo_colonization_colonization_show', { 'id': colonization.id }) }}">{{ colonization.id }}</a></td>
+                <td>{{ colonization.place }}</td>
+                <td>{{ colonization.map }}</td>
+                <td>{% if colonization.dateFrom %}{{ colonization.dateFrom|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if colonization.dateTo %}{{ colonization.dateTo|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ colonization.note }}</td>
+                <td>{% if colonization.createdAt %}{{ colonization.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('dynamo_colonization_colonization_show', { 'id': colonization.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('dynamo_colonization_colonization_edit', { 'id': colonization.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('dynamo_colonization_colonization_new') }}">Create a new colonization</a>
+        </li>
+    </ul>
+{% endblock %}
+

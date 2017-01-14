@@ -1,0 +1,3 @@
+dynamo_colonization:
+    resource: "@DynamoColonizationBundle/Controller/"
+    type: annotation

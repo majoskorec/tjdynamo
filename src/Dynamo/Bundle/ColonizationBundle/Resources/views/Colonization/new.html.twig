@@ -1,0 +1,57 @@
+{% extends 'DynamoPortalBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 col-md-offset-3 col-md-6">
+                <h2>
+                    <a href="{{ path('dynamo_colonization_colonization_index') }}" class="pull-right"
+                       style="font-size: 14px;">
+                        {{ 'list'|trans }}
+                    </a>
+                    {{ 'colonization.new'|trans }} {{ 'colonization.entity'|trans }}
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 col-md-offset-3 col-md-6">
+                {{ form_start(form) }}
+                <h3>Photos</h3>
+                <ul class="" data-prototype="{{ form_widget(form.photos.vars.prototype)|e('html_attr') }}">
+                    {# iterate over each existing tag and render its only field: name #}
+                    {% for photo in form.photos %}
+                        <li>{{ form_row(photo.name) }}</li>
+                    {% endfor %}
+                </ul>
+
+                {{ form_widget(form) }}
+                <div class="text-center">
+                    <input type="submit" class="btn btn-default" value="{{ 'create'|trans }}" />
+                </div>
+                {{ form_end(form) }}
+                <a href="{{ path('dynamo_colonization_colonization_index') }}" class="pull-right"
+                   style="font-size: 14px;">
+                    {{ 'list'|trans }}
+                </a>
+            </div>
+        </div>
+        <br />
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js">
+    </script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.{{ app.request.locale }}.min.js">
+    </script>
+{% endblock %}

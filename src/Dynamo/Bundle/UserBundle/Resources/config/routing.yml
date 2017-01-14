@@ -1,0 +1,3 @@
+dynamo_user:
+    resource: "@DynamoUserBundle/Controller/"
+    type: annotation

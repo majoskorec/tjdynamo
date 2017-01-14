@@ -1,0 +1,52 @@
+{% extends 'DynamoPortalBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Colonization</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ colonization.id }}</td>
+            </tr>
+            <tr>
+                <th>Place</th>
+                <td>{{ colonization.place }}</td>
+            </tr>
+            <tr>
+                <th>Map</th>
+                <td>{{ colonization.map }}</td>
+            </tr>
+            <tr>
+                <th>Datefrom</th>
+                <td>{% if colonization.dateFrom %}{{ colonization.dateFrom|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Dateto</th>
+                <td>{% if colonization.dateTo %}{{ colonization.dateTo|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ colonization.note }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if colonization.createdAt %}{{ colonization.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('dynamo_colonization_colonization_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('dynamo_colonization_colonization_edit', { 'id': colonization.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

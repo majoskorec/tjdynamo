@@ -1,0 +1,18 @@
+services:
+
+### menu ###############################################################################################################
+
+    dynamo_portal.menu_builder:
+        class: Dynamo\Bundle\PortalBundle\Menu\Builder
+        arguments: ["@knp_menu.factory"]
+        tags:
+            - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }
+
+### listeners ##########################################################################################################
+
+    dynamo_portal.listener.entity_created_at:
+        class: Dynamo\Bundle\PortalBundle\EventListener\EntityCreatedAtListener
+        arguments:
+            - "@security.token_storage"
+        tags:
+            - { name: doctrine.event_listener, event: prePersist, method: prePersist }

@@ -1,0 +1,22 @@
+dynamo_colonization_colonization:
+    resource: "@DynamoColonizationBundle/Controller/ColonizationController.php"
+    type:     annotation
+
+dynamo_resource:
+    resource: "@DynamoResourceBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dynamo_colonization:
+    resource: "@DynamoColonizationBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dynamo_portal:
+    resource: "@DynamoPortalBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dynamo_user:
+    resource: "@DynamoUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

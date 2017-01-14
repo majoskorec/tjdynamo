@@ -1,0 +1,4 @@
+services:
+#    dynamo_colonization.example:
+#        class: Dynamo\Bundle\ColonizationBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

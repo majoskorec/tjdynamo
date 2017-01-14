@@ -1,0 +1,50 @@
+{% extends "DynamoPortalBundle::layout.html.twig" %}
+
+{% block content %}
+    {% for member in members %}
+        {% if loop.index0 % 2 == 0 %}
+        <div class="row">
+        {% endif %}
+            <div class="col-sm-6" style="padding-left: 5px; padding-right: 5px;">
+                <div class="thumbnail user-list-user-block-{{ loop.index0 % 2 == 0 ? 'even' : 'odd' }}">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            {% set img = member.avatar ? member.avatar : 'bundles/dynamouser/img/avatar.png' %}
+                            <img class="img-thumbnail" src="{{ asset(img) }}" style="height: 140px;">
+                        </div>
+                        <div class="col-xs-7">
+                            <h4>{{ member.firstName }} {{ member.lastName }}</h4>
+                            <b>{{ member.username }}</b>
+                            <div>
+                                <span>{{ member.membership|trans }}</span>
+                                {% if member.memberFrom %}
+                                <span> od {{ member.memberFrom|date('d. M. Y') }}</span>
+                                {% endif %}
+                            </div>
+                            <div>{{ member.birthDate|date('d. M. Y') }}</div>
+                            <div>{{ member.address }}</div>
+                            <a class="" href="{{ path("dynamo_user_user_detail", {"id" : member.id}) }}">
+                                <i class="icon-plus"></i>
+                                Viac
+                            </a>
+                        </div>
+                    </div>
+                    {% if member.note %}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="bg-info" style="padding: 5px; margin: 5px 0 0 0;">
+                                {{ member.note }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% if loop.index0 % 2 == 1 %}
+        </div>
+        {% endif %}
+    {% endfor %}
+    {% if members|length % 2 == 1 %}
+        </div>
+    {% endif %}
+{% endblock %}
