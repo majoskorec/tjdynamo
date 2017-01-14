@@ -1,0 +1,86 @@
+{% extends 'DynamoPortalBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 col-md-offset-3 col-md-6">
+                <h2>
+                    <a href="{{ path('dynamo_colonization_colonization_index') }}" class="pull-right"
+                       style="font-size: 14px;">
+                        {{ 'list'|trans }}
+                    </a>
+                    {% block action_name %}{% endblock %}
+                    {{ 'colonization.entity'|trans }}
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 col-md-offset-3 col-md-6">
+                {% block colonization_form %}
+                    {{ form_start(form) }}
+                    {{ form_row(form.place) }}
+                    {{ form_row(form.map) }}
+                    <div class="form-group thumbnail">
+                        <div id="colonization-map-container" style="width: 100%; height: 400px;"></div>
+                    </div>
+                    {{ form_rest(form) }}
+                    <div class="text-center">
+                        {% block action_button %}{% endblock %}
+                    </div>
+                    {{ form_end(form) }}
+                    <a href="{{ path('dynamo_colonization_colonization_index') }}" class="pull-right"
+                       style="font-size: 14px;">
+                        {{ 'list'|trans }}
+                    </a>
+                {% endblock %}
+            </div>
+        </div>
+        <br />
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js">
+    </script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.{{ app.request.locale }}.min.js">
+    </script>
+    <script type="text/javascript"
+            src='http://maps.google.com/maps/api/js?sensor=false&libraries=places&key={{ google_api_key }}'>
+    </script>
+
+    {% javascripts
+    'bundles/dynamoportal/js/jquery.collection.js'
+    'bundles/dynamoportal/js/locationpicker.jquery.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        $('.colonization-photos').collection();
+        $('#colonization-map-container').locationpicker({
+            location: {
+                latitude: {% block latitude %}48.142073{% endblock %},
+                longitude: {% block longitude %} 17.100293{% endblock %}
+            },
+            addressFormat: 'natural_feature',
+            radius: 0,
+            mapTypeId: google.maps.MapTypeId.hybrid,
+            enableAutocomplete: true,
+            enableAutocompleteBlur: true,
+            zoom: 8,
+            onchanged: function (currentLocation, radius, isMarkerDropped) {
+                $("#colonization_map").val(currentLocation.latitude + ", " + currentLocation.longitude);
+            }
+        });
+    </script>
+{% endblock %}

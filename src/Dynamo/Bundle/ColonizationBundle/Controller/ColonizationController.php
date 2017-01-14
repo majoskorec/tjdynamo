@@ -54,7 +54,7 @@ class ColonizationController extends Controller
             $em->persist($colonization);
             $em->flush();
             $this->addFlash('success', $this->getTranslator()->trans("colonization.created"));
-            return $this->redirectToRoute('dynamo_colonization_colonization_show', ['id' => $colonization->getId()]);
+            return $this->redirectToRoute('dynamo_colonization_colonization_index');
         }
 
         return $this->render('DynamoColonizationBundle:Colonization:new.html.twig', [
@@ -81,7 +81,7 @@ class ColonizationController extends Controller
 
     /**
      * @Route("/{id}/zmen")
-     * @Method({"GET", "POST"})
+     * @Method({"GET", "PUT"})
      * @param Request $request
      * @param Colonization $colonization
      * @return Response
@@ -90,13 +90,13 @@ class ColonizationController extends Controller
     public function editAction(Request $request, Colonization $colonization)
     {
         $deleteForm = $this->createDeleteForm($colonization);
-        $editForm = $this->createForm(ColonizationType::class, $colonization);
+        $editForm = $this->createForm(ColonizationType::class, $colonization, ["method" => "PUT"]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash("success", $this->getTranslator()->trans("colonization.changed"));
-            return $this->redirectToRoute('dynamo_colonization_colonization_show', ['id' => $colonization->getId()]);
+            return $this->redirectToRoute('dynamo_colonization_colonization_index');
         }
 
         return $this->render('DynamoColonizationBundle:Colonization:edit.html.twig', [

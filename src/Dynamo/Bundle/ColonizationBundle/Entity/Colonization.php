@@ -15,6 +15,7 @@ use Dynamo\Bundle\PortalBundle\Entity\AddedByInterface;
 use Dynamo\Bundle\PortalBundle\Entity\CreatedAtInterface;
 use Dynamo\Bundle\PortalBundle\Entity\Traits\AddedByTrait;
 use Dynamo\Bundle\PortalBundle\Entity\Traits\CreatedAtTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Colonization
@@ -43,6 +44,7 @@ class Colonization implements CreatedAtInterface, AddedByInterface
 
     /**
      * @var string
+     * @Assert\Regex("/^\-?\d+(\.\d+)?, \-?\d+(\.\d+)?$/")
      * @ORM\Column(name="map", type="string", length=255, nullable=true)
      */
     private $map;
@@ -94,6 +96,32 @@ class Colonization implements CreatedAtInterface, AddedByInterface
      * )
      */
     private $colonizers;
+
+    /**
+     * @return bool
+     */
+    public function isCorrectMap()
+    {
+        return (bool) preg_match('/^\-?\d+(\.\d+)?, \-?\d+(\.\d+)?$/', $this->map);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMapLat()
+    {
+        list($lat, $lng) = preg_split("/, /", $this->map);
+        return $lat;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMapLng()
+    {
+        list($lat, $lng) = preg_split("/, /", $this->map);
+        return $lng;
+    }
 
     /**
      * @return bool

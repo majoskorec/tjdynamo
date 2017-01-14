@@ -39,6 +39,8 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form_theme: "DynamoPortalBundle::bootstrap.html.twig"
+    globals:
+        google_api_key: "%google_api_key%"
 
 # Doctrine Configuration
 doctrine:

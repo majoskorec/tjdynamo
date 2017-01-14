@@ -1,68 +1,37 @@
-{% extends 'DynamoPortalBundle::layout.html.twig' %}
+{% extends 'DynamoColonizationBundle:Colonization:form.html.twig' %}
 
-{% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-10 col-md-offset-3 col-md-6">
-                <h2>
-                    <a href="{{ path('dynamo_colonization_colonization_index') }}" class="pull-right"
-                       style="font-size: 14px;">
-                        {{ 'list'|trans }}
-                    </a>
-                    {{ 'colonization.edit'|trans }} {{ 'colonization.entity'|trans }}
-                </h2>
-            </div>
+{% block action_name %}{{ 'colonization.edit'|trans }}{% endblock %}
+
+{% block colonization_form %}
+    <div class="form-group">
+        <div class="pull-right">
+            {{ form_start(delete_form) }}
+            <input type="submit" value="{{ "delete"|trans }}" class="btn btn-danger btn-xs">
+            {{ form_end(delete_form) }}
         </div>
 
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-10 col-md-offset-3 col-md-6">
-                <div class="form-group">
-                    <div class="pull-right">
-                        {{ form_start(delete_form) }}
-                        <input type="submit" value="Delete" class="btn btn-danger btn-xs">
-                        {{ form_end(delete_form) }}
-                    </div>
-
-                    <label class="control-label required" for="colonization_id">Id</label>
-                    <input type="text" class="form-control" value="{{ colonization.id }}" disabled />
-                </div>
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <div class="text-center">
-                    <input type="submit" class="btn btn-default" value="{{ 'edit'|trans }}" />
-                </div>
-
-                {{ form_end(form) }}
-                <a href="{{ path('dynamo_colonization_colonization_index') }}" class="pull-right"
-                   style="font-size: 14px;">
-                    {{ 'list'|trans }}
-                </a>
-            </div>
-        </div>
-        <br />
+        <label class="control-label required" for="colonization_id">Id</label>
+        <input type="text" class="form-control" id="colonization_id" value="{{ colonization.id }}" disabled />
+        {{ parent() }}
     </div>
 {% endblock %}
 
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" type="text/css" media="screen"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css"/>
+{% block action_button %}
+    <input type="submit" class="btn btn-default" value="{{ "edit"|trans }}" />
 {% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js">
-    </script>
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.{{ app.request.locale }}.min.js">
-    </script>
+{% block latitude %}
+    {% if colonization.correctMap %}
+        {{ colonization.mapLat }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
 
-    {% javascripts 'bundles/dynamoportal/js/jquery.collection.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
-    <script type="text/javascript">
-        $('.colonization-photos').collection();
-    </script>
+{% block longitude %}
+    {% if colonization.correctMap %}
+        {{ colonization.mapLng }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
 {% endblock %}

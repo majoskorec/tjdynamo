@@ -16,8 +16,28 @@
     {% if colonization.map is not empty %}
     <div class="col-md-8">
         <h4>{{ "colonization.map"|trans }}</h4>
-        {{ colonization.map }}
+        <div class="thumbnail">
+            <div id="colonization-map-{{ colonization.id }}" style="width: 100%; height: 400px;"></div>
+        </div>
     </div>
+        {% if colonization.mapLat and colonization.mapLng %}
+        <script>
+            function initColonizationMap{{ colonization.id }}() {
+                var uluru = {lat: {{ colonization.mapLat }}, lng: {{ colonization.mapLng }}};
+                var map = new google.maps.Map(document.getElementById('colonization-map-{{ colonization.id }}'), {
+                    zoom: 12,
+                    center: uluru
+                });
+                var marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map
+                });
+            }
+        </script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initColonizationMap{{ colonization.id }}">
+        </script>
+        {% endif %}
     {% endif %}
 </div>
 
