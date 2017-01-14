@@ -33,6 +33,8 @@
 /web/js/*
 /web/css/*
 /web/images/*
+/web/assetic/*
+/web/fonts/*
 
 # PHPUnit
 /app/phpunit.xml
