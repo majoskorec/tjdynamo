@@ -110,7 +110,11 @@ class Colonization implements CreatedAtInterface, AddedByInterface
      */
     public function getMapLat()
     {
-        list($lat, $lng) = preg_split("/, /", $this->map);
+        try {
+            list($lat, $lng) = preg_split("/, /", $this->map);
+        } catch (\Exception $e) {
+            return false;
+        }
         return $lat;
     }
 
@@ -119,7 +123,11 @@ class Colonization implements CreatedAtInterface, AddedByInterface
      */
     public function getMapLng()
     {
-        list($lat, $lng) = preg_split("/, /", $this->map);
+        try {
+            list($lat, $lng) = preg_split("/, /", $this->map);
+        } catch (\Exception $e) {
+            return false;
+        }
         return $lng;
     }
 

@@ -33,9 +33,7 @@
                     map: map
                 });
             }
-        </script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initColonizationMap{{ colonization.id }}">
+            initColonizationMap{{ colonization.id }}();
         </script>
         {% endif %}
     {% endif %}
